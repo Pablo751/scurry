@@ -1,1 +1,1 @@
-Flask==2.2.3
+web: python app.py
