@@ -3,7 +3,6 @@ import os
 
 app = Flask(__name__)
 
-# Get the webhook token from an environment variable.
 WEBHOOK_TOKEN = os.environ.get("WEBHOOK_TOKEN", "default_token")
 
 @app.route("/webhook", methods=["POST"])
@@ -14,9 +13,9 @@ def webhook():
 
     data = request.get_json()
     print("Received webhook data:", data)
-    # Process the webhook data as needed.
     return jsonify({"status": "success"}), 200
 
 if __name__ == "__main__":
+    # Default to port 5000, but use the PORT env var if it’s set (Railway sets it automatically)
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
