@@ -1,3 +1,4 @@
+# app.py
 import os
 import base64
 from flask import Flask, request, jsonify
@@ -7,9 +8,12 @@ app = Flask(__name__)
 USERNAME = os.environ.get("USERNAME", "default_user")
 PASSWORD = os.environ.get("PASSWORD", "default_pass")
 
+@app.route("/", methods=["GET"])
+def health_check():
+    return "OK", 200
+
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    # Basic Auth check
     auth_header = request.headers.get("Authorization")
     if not auth_header or not auth_header.startswith("Basic "):
         return jsonify({"error": "Unauthorized"}), 401
